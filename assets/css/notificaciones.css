@@ -1,0 +1,88 @@
+
+/**************************
+	NOTIFICATIONS
+**************************/
+.notificacion{
+	width: 400px;
+    border: 1px solid #484848;
+    border-radius: 0px;
+    position: absolute;
+    bottom: 40px;
+    left: -530px;
+    opacity: 0;
+    z-index: 100;
+    -webkit-transition: all .5s ease .3s;
+    -o-transition: all .5s ease .3s;
+    transition: all .5s ease .3s;
+    background-color: #1f1f1f;
+    height: 80px;
+    color: #FFF;
+    padding: 5px;
+}
+#cuerpo_notificacion{
+        width: 100%;
+    font-size: 1em;
+    line-height: 2;
+
+}
+.SUCCESS{
+       background: rgb(2, 107, 6);
+    margin: 0;
+    display: -webkit-box;
+    border: 1px solid #345836;
+}
+.WARNING{
+        background: #e48801;
+    margin: 0;
+    color: #f1a22e !important;
+    display: -webkit-box;
+    border: 1px solid #f1a22e;
+}
+.ERROR{
+        background: rgb(214, 14, 0);
+    margin: 0;
+    display: -webkit-box;
+    border: 1px solid #f44336;
+}
+.WAITING{
+        background: #607D8B;
+    margin: 0;
+    display: -webkit-box;
+    border: 1px solid #9E9E9E;
+}
+
+
+
+.notificacion .icono{
+	width: 20%;
+	padding-left: 16px
+}
+.notificacion .icono img{
+	height: 50px;
+}
+.notificacion .mensaje{
+    width: 95%;
+    margin-top: 0;
+    padding-top: 0;
+    padding-right: 20px;
+    margin-left: 6px;
+    margin-top: 1%;
+}
+.notificacion .mensaje p{
+    font-size: 1em;    
+    color: #eeeeee;
+    font-weight: 300;
+    letter-spacing: 0.0125em;
+}
+
+.notificacion.show{
+	left: 2px;
+    opacity: 1;
+    padding-left: 6px;
+}
+
+@media print{
+    .notificacion{
+        display: none !important;
+    }
+}

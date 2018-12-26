@@ -1,0 +1,164 @@
+/*@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,700');*/
+@import url('https://fonts.googleapis.com/css?family=Titillium+Web:400,700');
+
+*{
+	/*font-family: 'Open Sans', sans-serif;*/
+	font-family: 'Titillium Web', sans-serif;
+}
+
+h6{
+	font-weight: bold;
+	margin-bottom: 15px;
+}
+
+table thead th{
+	text-align: center !important;
+}
+
+.container{
+	width: 90%;
+	max-width: 1280px;
+}
+.dato{
+	display: block;
+	background: aliceblue;
+	padding: 6px;
+	margin-top: 5px;
+	margin-bottom: 10px;
+	min-height: 35px;
+	font-size: .95em;
+}
+label {
+    color: #151515 !important;
+    font-size: 1em !important;
+    font-weight: bold;
+}
+
+#listado,
+#listado_no_dataTable{
+	border: 1px solid #dcdcdc;
+}
+#listado tbody tr td,
+#listado thead th,
+#listado_no_dataTable tbody tr td,
+#listado_no_dataTable thead th{
+	border-left: 1px solid #dcdcdc;
+	border-bottom: 1px solid #dcdcdc;
+	padding: 5px;
+}
+#listado tr td,
+#listado_no_dataTable tr td{
+	font-size: .8em;
+}
+#listado thead tr th,
+#listado_no_dataTable thead tr th{
+	font-size: .75em;
+}
+
+
+input[type=text]:disabled{
+	color: #333;
+    width: 40px;
+}
+span.info{
+	display: block;
+    border-bottom: 1px solid #9E9E9E;
+    padding-bottom: 6px;
+    margin-top: 9px;
+}
+td.numero{
+	text-align: right !important;
+}
+
+.UCM{
+    background-color: #3F51B5 !important;
+    color: #fff;
+}
+
+
+
+/*********************************************/
+/*	Login
+/*********************************************/
+
+#fondo_login{
+     background-image: url(../img/campus_ucm.jpg);
+    margin-top: 0;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    padding-top: 2%;
+
+}
+.login{
+    background: rgba(255, 255, 255, .5);
+    padding: 10px !important;
+    border-radius: 5px;
+    padding-top: 19px !important;
+    margin-top: 17px;
+    padding-bottom: 21px !important;
+    color: #002a61;
+}
+
+/*********************************************/
+/*	nuevo Proceso
+/*********************************************/
+.form_group{
+	    border: 1px solid #dcdcdc;
+    border-radius: 4px;
+    padding: 15px 4px 4px 4px !important;
+    display: flex;
+    margin-bottom: 18px;
+}
+.carreras_append{
+padding: 10px;
+    background: #3f51b5;
+    color: #fff;
+    margin: 5px;
+    border-radius: 5px;
+    display: inline-block;
+}
+.carreras_append i{
+	    margin-left: 10px;
+    border-left: 1px solid;
+    padding-left: 5px;
+}
+
+#contenedor_facultades .label, #contenedor_carreras .label{
+        font-size: 0.7em !important;
+    line-height: 1em;
+    vertical-align: middle;
+    display: table-cell;
+}
+.container_checkbox{
+        padding: 2px 7px;
+    border: 1px solid #dcdcdc;
+    margin: 2px;
+    vertical-align: middle;
+    display: block;
+
+}
+
+#contenedor_carreras{
+    
+}
+
+.btn_center{
+        margin: auto;
+    display: table;
+}
+
+.dato_corto{
+    display: inline-block;
+    background: aliceblue;
+    padding: 6px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-right: 5px;
+    min-height: 35px;
+    font-size: .95em;
+}
+
+.grupo_datos{
+
+}

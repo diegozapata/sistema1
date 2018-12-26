@@ -1,0 +1,79 @@
+@media print{
+	@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,700');
+	*{
+		font-family: 'Open Sans', sans-serif;
+	}
+
+	.hide-on-print, .dataTables_info, .dataTables_paginate, .dataTables_length, .dataTables_filter, nav, .filtros, .btn{
+		display: none !important;
+	}
+	.detalle_filtro{
+		display: inline !important;
+	}
+	.dato{
+		border: 1px solid #000;
+	    padding: 1px 5px;
+	    font-size: 11px;
+	    height: 19px;
+	    min-height: 0;
+	    color: #000;
+	    margin-top: 0px;
+	}
+	.row .col{
+		margin-top: 8px;
+	}
+	*{
+		box-shadow: none !important;
+	}
+	.container, .container_form, .contenedor_tabla{
+		width: 97% !important;
+		margin-left: 0%;
+		padding: 0 !important;
+	}
+	table {
+    border-collapse: collapse;
+	}
+	table, th, td {
+	    border: 1px solid black;
+	}
+
+	table thead{
+		
+	}
+	table thead th {
+	    font-size: .7em;
+	    border-radius: 0 !important;
+	  
+	}
+	table thead th:last-child {
+	   
+	}
+	table tbody{
+
+	}
+	table tbody tr{
+
+	}
+	table tbody tr td{
+		border-radius: 0 !important;
+		padding: 2px !important;
+	   
+	}
+	table tbody tr td:last-child {
+
+	}
+	table.dataTable thead .sorting{
+		background: none;
+	}
+	label{
+		font-size: .8em !important;
+		margin-bottom: 2px;
+	}
+	
+	h3{
+		font-size: 2em;
+		margin-top: 0;
+		margin-bottom: 10px;
+	}
+
+}
