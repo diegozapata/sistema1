@@ -46,13 +46,14 @@ class informes_controller extends CI_Controller {
     $data= array();
       $query1=$this->input->get('query1',TRUE);
       $query2=$this->input->get('query2',TRUE);
+      $id_sucursal=$this->input->get('id_sucursal',TRUE);
       $this->load->view('header');
     $this->load->view('informesC/informeC1',$data);
     $this->load->view('menu_lateral');
     $this->load->view('footer');
         
       if ($query1!=null) {
-       $resultados=$this->compras_model->buscarrango($query1,$query2);
+       $resultados=$this->compras_model->buscarrango($query1,$query2,$id_sucursal);
       if ($resultados != FALSE) {
             $ucc = $this->compras_model->obtener_ucc();
             $data= array("resultados"=> $resultados,
@@ -76,6 +77,7 @@ class informes_controller extends CI_Controller {
     $data= array();
       $query=$this->input->get('query',TRUE);
       $query1=$this->input->get('query1',TRUE);
+      $id_sucursal=$this->input->get('id_sucursal',TRUE);
       $this->load->view('header');
      $this->load->view('informesV/informeV',$data);
      $this->load->view('menu_lateral');
@@ -83,7 +85,7 @@ class informes_controller extends CI_Controller {
 
         
       if ($query1) {
-       $resultados=$this->ventas_model->buscar($query,$query1);
+       $resultados=$this->ventas_model->buscar($query,$query1,$id_sucursal);
       if ($resultados != FALSE) {
         $ucc=$this->ventas_model->obtener_ucc();
         $tipos_ventas=$this->ventas_model->obtener_tipo_venta();
@@ -116,13 +118,14 @@ class informes_controller extends CI_Controller {
     $data= array();
       $query1=$this->input->get('query1',TRUE);
       $query2=$this->input->get('query2',TRUE);
+      $id_sucursal=$this->input->get('id_sucursal',TRUE);
       $this->load->view('header');
      $this->load->view('informesV/informeV1',$data);
      $this->load->view('menu_lateral');
      $this->load->view('footer');
         
       if ($query1) {
-       $resultados=$this->ventas_model->buscarrango($query1,$query2);
+       $resultados=$this->ventas_model->buscarrango($query1,$query2,$id_sucursal);
       if ($resultados != FALSE) {
         $ucc=$this->ventas_model->obtener_ucc();
         $tipos_ventas=$this->ventas_model->obtener_tipo_venta();

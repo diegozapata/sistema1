@@ -6,7 +6,7 @@
 
 
           <div class="row">
-            <div class="col"><h3> Cantidad de ventas realizadas:<?php echo count($resultados);?></h3></div>
+            <div class="col"><h6> Cantidad de ventas realizadas:<?php echo count($resultados);?></h6></div>
           <div class="col"><center><h6>Desde: <?php echo date("d-m-Y ", strtotime($query1));?>  Hasta:<?php echo date("d-m-Y ", strtotime($query2));?></h6></center></div>
           <div class="col-md-4 col-md-offset-4">
             <form id="query1" method="POST" action=" <?=base_url();?>index.php/pdfs/genera">

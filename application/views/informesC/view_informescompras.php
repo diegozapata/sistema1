@@ -26,14 +26,14 @@
                                 
                           
                                       <div class="col">
-                                     <a href="informes/comprasM" class="btn btn-info pull-right" >Informes de Compras mensuales</a>
+                                     <a href="<?php echo base_url(); ?>index.php/informes/comprasM" class="btn btn-info pull-right" >Informes de Compras mensuales</a>
                                       </div>
                                     
                                      <div class="col">
-                                    <a href="informes/ventas" class="btn btn-info pull-right" >Informe de ventas Semanales</a>
+                                    <a href="<?php echo base_url(); ?>index.php/informes/ventas" class="btn btn-info pull-right" >Informe de ventas Semanales</a>
                                       </div>
                                       <div class="col">
-                                     <a href="informes/ventasM" class="btn btn-info pull-right" >Informes de ventas mensuales</a>
+                                     <a href="<?php echo base_url(); ?>index.php/informes/ventasM" class="btn btn-info pull-right" >Informes de ventas mensuales</a>
                                       </div>
                                       
                                 

@@ -101,7 +101,7 @@ if (!defined('K_TCPDF_EXTERNAL_CONFIG')) {
 	/**
 	 *images directory
 	 */
-	define ('K_PATH_IMAGES', K_PATH_MAIN.'images/');
+	define ('K_PATH_IMAGES','C:/xampp1/htdocs/sistema/application/libraries/tcpdf/images/');
 
 	/**
 	 * blank image

@@ -133,11 +133,11 @@ public function buscar($query){
 
 }
 
-public function buscarrango($query1,$query2){
+public function buscarrango($query1,$query2,$id_Sucursal){
      
      
     $data="SELECT * FROM COMPRA WHERE FECHA_INGRESO between TO_DATE('$query1','YYYY-MM-DD') AND TO_DATE('$query2','YYYY-MM-DD')";
-      
+      $data="SELECT * FROM COMPRA WHERE  ID_SUCURSAL = $id_Sucursal";
      $query=$this->db->query($data); 
     
      if ($query->num_rows()>0)

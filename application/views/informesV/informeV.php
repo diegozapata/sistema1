@@ -11,7 +11,9 @@
 
         <input type="date" id="query" name="query">
         <input type="date" id="query1" name="query1">
+        <input type="hidden" id="id_sucursal" name="id_sucursal" value="<?php echo $this->session->userdata('ID_SUCURSAL');?>">
         <input type="submit"  id="buscar" value="buscar">
+        
  </form>
 
  
