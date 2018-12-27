@@ -72,6 +72,8 @@ class informes_controller extends CI_Controller {
 
    public function informesVentas()
   {   
+
+      $transbank=null;
        $resultados=null;
     $this->load->model('ventas_model');
     $data= array();
@@ -87,13 +89,22 @@ class informes_controller extends CI_Controller {
       if ($query1) {
        $resultados=$this->ventas_model->buscar($query,$query1,$id_sucursal);
       if ($resultados != FALSE) {
+            foreach ($resultados as $valor) {
+
+              $valor['TIPO_VENTA']===0;
+              $transbank =$resultados;
+
+            }
+                  //var_dump($transbank);
+
+
         $ucc=$this->ventas_model->obtener_ucc();
         $tipos_ventas=$this->ventas_model->obtener_tipo_venta();
-        $productos = $this->ventas_model->obtener_itemventa();
+       // $productos = $this->ventas_model->obtener_itemventa();
         $productos1 = $this->ventas_model->obtener_todosproductos();
             $data= array("resultados"=> $resultados,
               "ucc"=> $ucc,"tipos_ventas"=> $tipos_ventas,
-              "query"=> $query,"query1"=> $query1,"productos"=> $productos,"productos1"=> $productos1);
+              "query"=> $query,"query1"=> $query1,"productos1"=> $productos1,"transbank"=> $transbank  );
 
        }else{
       echo "<script> alert('No hay registros');</script>";
@@ -201,7 +212,7 @@ class informes_controller extends CI_Controller {
 // Establecemos el contenido para imprimir
         $data = unserialize(stripslashes($this->input->post('query1')));
 
-        $productos=$data['productos'];
+        //$productos=$data['productos'];
         $resultados=$data['resultados'];
         $query=$data['query'];
         $query1=$data['query1'];
@@ -217,40 +228,91 @@ class informes_controller extends CI_Controller {
         $html.= "<style type=text/css>";
         $html.= "th";
         $html.= "td";
+        $html.="table,td {
+                  border: 1px solid black;
+                   }";
+       $html.="table,th {
+                  border: 1px solid black;
+                   }";
         $html.= "</style>";
         $html.= "<h4>Cantidad de ventas realizadas: ".count($resultados)."&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Desde&nbsp;" . date("d-m-Y ", strtotime($query))."&nbsp;&nbsp;&nbsp;Hasta&nbsp;". date("d-m-Y ", strtotime($query1))."</h4>";
+        $html.= "<br>";
+        $html.= "<br>";
+        $html.= "<br>";
+        $html.= "<br>";
         $html.= "<table width='100%'>";
-        $html.= "<tr><th>Numero boleta</th><th>Detalle</th><th>Valor Neto</th></tr>";
-          $enseñanza1=0;
-          $enseñanza=0;
-        foreach ($productos as $fila) {
-          
+        $html.= "<h3>Venta normal</h3>";
+        $html.= "<tr><th>Numero boleta</th><th>Fecha de venta</th><th>Total</th></tr>";
+         $sumando=null;
+           $iva=null; 
+           $SubTotal=null; 
+        foreach ($resultados as $fila) {
+              if ($fila['TIPO_VENTA']==='0') {
 
              $id = $fila['N_BOLETA'];
 
 
-            $localidad = $fila['NOMBRE'];
+            $localidad =date("d-m-Y ", strtotime($fila['FECHA_INGRESO']));
 
 
-        
+                 
            
 
             //var_dump($enseñanza);
               $total =$fila['TOTAL'];
               
-        
+        $SubTotal += $fila['TOTAL'];
  
             $html.= "<tr><td class='Numero boleta'>".$id."</td><td class='Detalle'>".$localidad."</td><td class='Valor Neto'>".$total."</td></tr>";
-       }
+      } }
+
+           $iva=$SubTotal*0.19;
+          $sumando=$SubTotal+$iva;
+           $html.= "</table>";
+           
+           $html.= "<h4>SubTotal &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;".$SubTotal."</h4>";
+          $html.= "<h4>Iva &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;".$iva."</h4>";
+          $html.= "<h4>Total general&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;".$sumando."</h4>";
+            
+  
+         //$pdf->writeHTMLCell($w=0, $h=0, $x='', $y='', $html, $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);
+
+
+
+          $html.= "<table width='100%'>";
+          $html.= "<h3>Venta transbank</h3>";
+        $html.= "<tr><th>Numero boleta</th><th>Fecha de venta</th><th>Total</th></tr>";
+          $sumando1=null;
+           $iva1=null; 
+           $SubTotal1=null; 
+        foreach ($resultados as $fila) {
+              if ($fila['TIPO_VENTA']!='0') {
+
+             $id = $fila['N_BOLETA'];
+
+
+            $localidad =date("d-m-Y ", strtotime($fila['FECHA_INGRESO']));
+
+
+                 
+           
+
+            //var_dump($enseñanza);
+              $total =$fila['TOTAL'];
+              
+        $SubTotal1 += $fila['TOTAL'];
+ 
+            $html.= "<tr><td class='Numero boleta'>".$id."</td><td class='Detalle'>".$localidad."</td><td class='Valor Neto'>".$total."</td></tr>";
+      } }
+
+           $iva1=$SubTotal1*0.19;
+          $sumando1=$SubTotal1+$iva1;
         $html.= "</table>";
-           
-           
-  
-          $html.= "<h4>Total general&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;".array_sum(array_column($resultados, 'TOTAL'))."</h4>";
-            $html.= "<h4>____________________<br> Firma Responsable</h4>";
-  
-         $pdf->writeHTMLCell($w=0, $h=0, $x='', $y='', $html, $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);
-        
+         $html.= "<h4>SubTotal &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;".$SubTotal1."</h4>";
+          $html.= "<h4>Iva &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;".$iva1."</h4>";
+           $html.= "<h4>Total general&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;".$sumando1."</h4>";
+           $html.= "<h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;____________________<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Firma Responsable</h4>";
+        $pdf->writeHTMLCell($w=0, $h=0, $x='', $y='', $html, $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = '', $autopadding = true);
 // ---------------------------------------------------------
 // Cerrar el documento PDF y preparamos la salida
 // Este método tiene varias opciones, consulte la documentación para más información.
@@ -331,6 +393,12 @@ class informes_controller extends CI_Controller {
         $html.= "<style type=text/css>";
         $html.= "th";
         $html.= "td";
+        $html.="table,td {
+                  border: 1px solid black;
+                   }";
+       $html.="table,th {
+                  border: 1px solid black;
+                   }";
         $html.= "</style>";
         $html.= "<h4>Cantidad de ventas realizadas: ".count($resultados)."&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Desde&nbsp;" . date("d-m-Y ", strtotime($query1))."&nbsp;&nbsp;&nbsp;Hasta&nbsp;". date("d-m-Y ", strtotime($query2))."</h4>";
         $html.= "<table width='100%'>";
@@ -474,6 +542,12 @@ class informes_controller extends CI_Controller {
         $html.= "<style type=text/css>";
         $html.= "th";
         $html.= "td";
+        $html.="table,td {
+                  border: 1px solid black;
+                   }";
+       $html.="table,th {
+                  border: 1px solid black;
+                   }";
         $html.= "</style>";
         $html.= "<h4>Cantidad de ventas realizadas: ".count($resultados)."&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Desde&nbsp;" . date("d-m-Y ", strtotime($query1))."&nbsp;&nbsp;&nbsp;Hasta&nbsp;". date("d-m-Y ", strtotime($query2))."</h4>";
         $html.= "<table width='100%'>";

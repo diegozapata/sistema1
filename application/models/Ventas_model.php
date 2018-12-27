@@ -180,15 +180,14 @@ public function obtener_sucursal(){
       $this->db->from('SUCURSAL');
       $this->db->order_by('NOMBRE_S', 'asc');
       $result = $this->db->get();
-        // $query = $this->db->get('INSUMO');
+        
       return  $result->result_array();
     }
 public function buscar($query,$query1,$id_Sucursal){
 
     $data="SELECT * FROM VENTA WHERE FECHA_INGRESO between TO_DATE('$query','YYYY-MM-DD') AND TO_DATE('$query1','YYYY-MM-DD')";
-    $data="SELECT * FROM VENTA WHERE ID_UCC=3 AND  ID_SUCURSAL = $id_Sucursal";
-    
-    //$data="SELECT * FROM VENTA WHERE ";
+    $data="SELECT * FROM VENTA WHERE ID_UCC=3 AND  ID_SUCURSAL = $id_Sucursal ";
+ 
     
      $query=$this->db->query($data); 
  
@@ -207,8 +206,7 @@ public function buscarrango($query1,$query2,$id_sucursal){
     $data="SELECT * FROM VENTA WHERE FECHA_INGRESO between TO_DATE('$query1','YYYY-MM-DD') AND TO_DATE('$query2','YYYY-MM-DD')";
       $data="SELECT * FROM VENTA WHERE ID_UCC!=3 AND  ID_SUCURSAL = $id_sucursal";
      $query=$this->db->query($data); 
-     //$this->db->join('USUARIO', 'USUARIO.ID_USUARIO = VENTA.ID_USUARIO');
-     //$this->db->join('UCC', 'UCC.ID_UCC = VENTA.ID_UCC');
+
      if ($query->num_rows()>0)
         {
             return $query->result_array();
@@ -221,7 +219,7 @@ public function obtener_ucc(){
       $this->db->from('UCC');
       $this->db->order_by('NOMBRE', 'asc');
       $result = $this->db->get();
-        // $query = $this->db->get('INSUMO');
+  
       return  $result->result_array();
     }
     public function obtener_tipo_venta(){
@@ -230,7 +228,7 @@ public function obtener_ucc(){
       $this->db->from('TIPO_VENTA');
       $this->db->order_by('NOMBRE', 'asc');
       $result = $this->db->get();
-        // $query = $this->db->get('INSUMO');
+
       return  $result->result_array();
     }
 
@@ -244,7 +242,7 @@ public function obtener_ucc(){
        $this->db->join('VENTA', 'VENTA.ID_VENTA = ITEMS_VENTA.ID_VENTA');
       $this->db->order_by('ID_ITEMS_VENTA', 'asc');
       $result = $this->db->get();
-        // $query = $this->db->get('INSUMO');
+   
       return  $result->result_array();
     }
 
