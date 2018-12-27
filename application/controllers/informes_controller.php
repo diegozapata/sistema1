@@ -89,22 +89,14 @@ class informes_controller extends CI_Controller {
       if ($query1) {
        $resultados=$this->ventas_model->buscar($query,$query1,$id_sucursal);
       if ($resultados != FALSE) {
-            foreach ($resultados as $valor) {
-
-              $valor['TIPO_VENTA']===0;
-              $transbank =$resultados;
-
-            }
-                  //var_dump($transbank);
-
-
+    
         $ucc=$this->ventas_model->obtener_ucc();
         $tipos_ventas=$this->ventas_model->obtener_tipo_venta();
        // $productos = $this->ventas_model->obtener_itemventa();
         $productos1 = $this->ventas_model->obtener_todosproductos();
             $data= array("resultados"=> $resultados,
               "ucc"=> $ucc,"tipos_ventas"=> $tipos_ventas,
-              "query"=> $query,"query1"=> $query1,"productos1"=> $productos1,"transbank"=> $transbank  );
+              "query"=> $query,"query1"=> $query1,"productos1"=> $productos1 );
 
        }else{
       echo "<script> alert('No hay registros');</script>";
